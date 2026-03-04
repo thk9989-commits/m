@@ -1,1 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Act Two - System Breach</title>
 
+<style>
+body{
+    margin:0;
+    background:black;
+    color:#00ff41;
+    font-family:monospace;
+    padding:40px;
+}
+
+#terminal{
+    border:1px solid #00ff41;
+    padding:20px;
+    height:80vh;
+    overflow:auto;
+    white-space:pre-wrap;
+}
+
+input{
+    background:black;
+    border:1px solid #00ff41;
+    color:#00ff41;
+    padding:8px;
+    font-family:monospace;
+    width:300px;
+}
+
+.wrong{
+    color:red;
+}
+</style>
+</head>
+<body>
+
+<h2>SYSTEM BREACH</h2>
+
+<div id="terminal"></div>
+
+<div id="input-area" style="display:none;">
+    <div>> STABILIZE CORE:</div>
+    <input type="text" id="answer">
+</div>
+
+<script>
+
+const terminal = document.getElementById("terminal");
+const inputArea = document.getElementById("input-area");
+const input = document.getElementById("answer");
+
+const logs = [
+"ACCESS GRANTED...",
+"LOADING SCENARIO DATA...",
+"BLACKLISTING USERS...",
+"FIREWALL BYPASSED...",
+"DECRYPTING FILES...",
+"SYSTEM COMPROMISED..."
+];
+
+let i = 0;
+
+function typeLogs(){
+    if(i < logs.length){
+        terminal.innerHTML += logs[i] + "\n";
+        i++;
+        setTimeout(typeLogs,700);
+    }else{
+        inputArea.style.display="block";
+        input.focus();
+    }
+}
+
+input.addEventListener("keydown",function(e){
+    if(e.key === "Enter"){
+
+        if(input.value.trim().toLowerCase() === "stabilize"){
+            terminal.innerHTML += "\nCORE STABILIZED.\n";
+            inputArea.style.display="none";
+        }else{
+            terminal.innerHTML += "\nWRONG COMMAND.\n";
+            input.classList.add("wrong");
+
+            setTimeout(()=>{
+                input.classList.remove("wrong");
+            },500);
+        }
+
+        input.value="";
+    }
+});
+
+window.onload = typeLogs;
+
+</script>
+
+</body>
+</html>
